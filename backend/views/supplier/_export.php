@@ -15,7 +15,18 @@ use yii\widgets\ActiveForm;
 
     <?php
     $attrs = $searchModel->attributeLabels();
-    echo Html::checkboxList('fields',array_keys($attrs), $attrs, ['prompt' => '']) ?>
+    echo Html::checkboxList('fields',array_keys($attrs), $attrs,  ['item' =>
+        function ($index, $label, $name, $checked, $value) {
+        //var_dump(func_get_args());exit;
+        $itemOptions = [];
+        if ('id' == $value) {
+            $itemOptions['onclick'] = 'return false';
+        }
+        return Html::checkbox($name, $checked, array_merge([
+            'value' => $value,
+            'label' => HTML::encode($label),
+        ], $itemOptions));
+    }]) ?>
 
     <div class="form-group">
         <?= Html::submitButton('Save', ['class' => 'btn btn-success']) ?>

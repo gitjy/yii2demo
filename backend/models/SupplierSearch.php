@@ -47,6 +47,7 @@ class SupplierSearch extends Supplier
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
+            'pagination' => ['pagesize' => 5]
         ]);
 
         $this->load($params);

@@ -66,9 +66,9 @@ class SupplierController extends Controller
                 foreach ($attrs as  $k => $v) {
                     if (in_array($k,$fields)) {
                         echo $v . "\t";
-                        echo "\n";
                     }
                 }
+                echo "\n";
             }
             die();
         }
