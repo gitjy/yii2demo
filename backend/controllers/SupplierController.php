@@ -56,12 +56,21 @@ class SupplierController extends Controller
     public function actionExport()
     {
         $searchModel = new SupplierSearch();
-        $dataProvider = $searchModel->search($this->request->queryParams);
+        $dataProvider = $searchModel->searchAll($this->request->queryParams);
         if ($this->request->isPost) {
             header("Content-type:text/csv;charset=UTF-8");
-            header("Content-type:text/csv;charset=UTF-8");
-            foreach ($dataProvider as $m) {
+            $models = $dataProvider->getModels();
+            $fields = $_POST['fields'];
+            foreach ($models as $m) {
+                $attrs = $m->attributes;
+                foreach ($attrs as  $k => $v) {
+                    if (in_array($k,$fields)) {
+                        echo $v . "\t";
+                        echo "\n";
+                    }
+                }
             }
+            die();
         }
         return $this->render('_export', [
             'searchModel' => $searchModel,
